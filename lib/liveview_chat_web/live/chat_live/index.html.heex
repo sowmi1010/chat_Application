@@ -1,12 +1,12 @@
-<div class="flex flex-col h-screen">
-  <div class="sticky top-0 border-b border-gray-200 py-3">
-    <h1 class="text-gray-900 font-bold text-lg">Chat Message Live</h1>
+<div class="flex flex-col h-screen font-serif">
+  <div class="fixed w-full lg:max-w-2xl z-10 top-0  border-b-2 border-white py-3.5 bg-black">
+    <h1 class="text-white font-extrabold lg:text-3xl text-xl lg:px-4 px-2">Chat Message Live</h1>
   </div>
   <div
     class="relative flex-grow bg-cover"
     style="background-image: url('images/pexels-rahul-716398.jpg');"
   >
-    <ul class="journal-scroll h-[51rem] relative w-full lg:px-2 font-poppins overflow-y-auto flex flex-col gap-2 px-4 py-2">
+    <ul class="lg:h-[50rem] relative w-full lg:px-2 overflow-y-auto journal-scroll flex flex-col gap-2 px-4 py-2 mt-16">
       <%= for {m, i} <- Enum.with_index(@messages) do %>
         <li class={
           if m.name == "Stranger1",
@@ -16,11 +16,11 @@
           <div class={
             if m.name == "Stranger1",
               do:
-                "max-w-xs bg-amber-300 rounded-tl-[20px] rounded-tr-md rounded-br-[20px] rounded-bl-[20px] px-4 py-2",
+                "max-w-xs bg-amber-300 rounded-tl-[20px] rounded-tr-md rounded-br-[20px] rounded-bl-[20px] px-4 py-2 shadow-2xl",
               else:
                 if(m.name == "Stranger2",
                   do:
-                    "max-w-xs bg-white rounded-tl-md rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-4 py-2",
+                    "max-w-xs bg-white rounded-tl-md rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-4 py-2 shadow-2xl",
                   else: ""
                 )
           }>
@@ -32,18 +32,22 @@
         </li>
       <% end %>
     </ul>
-    <form phx-submit="send" class="flex bg-white py-2.5">
+    <form
+      phx-submit="send"
+      class="flex lg:max-w-2xl w-full bg-black py-3 px-2 bottom-0 z-10 fixed"
+    >
       <input
         type="text"
         name="text"
         placeholder="Write your message!"
-        class="focus:outline-none focus:placeholder-orange-400 text-gray-600 pl-4 py-3 w-full rounded-lg border border-orange-500 text-sm placeholder-orange-700 focus:border-orange-500 focus:ring-orange-500"
+        class="focus:outline-none focus:placeholder-white text-white pl-4 py-3 w-full rounded-lg border-2 border-white text-base placeholder-white focus:border-gray-500 placeholder-text-white focus:ring-gray-500 bg-gray-800"
       />
+
       <button
         type="submit"
-        class="ml-4 inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-orange-500 hover:bg-orange-400 focus:outline-none"
+        class="text-white border-2 border-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-bold rounded-lg text-sm px-5 py-3 ml-2"
       >
-        <span class="font-bold">Send</span>
+        Send
       </button>
     </form>
   </div>

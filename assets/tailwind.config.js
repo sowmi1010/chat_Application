@@ -13,7 +13,7 @@ module.exports = {
         brand: "#FD4F00",
       },
       height: {
-        816: "51rem",
+        800: "50rem",
       },
     },
   },
