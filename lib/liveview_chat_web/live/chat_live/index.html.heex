@@ -1,15 +1,50 @@
-<div>
-  <h1>ChatLive</h1>
-  <div
-    class="messages"
-    style="border: 1px solid #eee; height: 400px; overflow: scroll; margin-bottom: 8px;"
-  >
-    <%= for m <- @messages do %>
-      <p style="margin: 2px;"><b><%= m.name %></b>: <%= m.text %></p>
-    <% end %>
+<div class="flex flex-col h-screen">
+  <div class="sticky top-0 border-b border-gray-200 py-3">
+    <h1 class="text-gray-900 font-bold text-lg">Chat Message Live</h1>
   </div>
-  <form phx-submit="send">
-    <input type="text" name="text" />
-    <button type="submit">Send</button>
-  </form>
+  <div
+    class="relative flex-grow bg-cover"
+    style="background-image: url('images/pexels-rahul-716398.jpg');"
+  >
+    <ul class="journal-scroll h-[51rem] relative w-full lg:px-2 font-poppins overflow-y-auto flex flex-col gap-2 px-4 py-2">
+      <%= for {m, i} <- Enum.with_index(@messages) do %>
+        <li class={
+          if m.name == "Stranger1",
+            do: "flex justify-end",
+            else: if(m.name == "Stranger2", do: "flex justify-start", else: "")
+        }>
+          <div class={
+            if m.name == "Stranger1",
+              do:
+                "max-w-xs bg-amber-300 rounded-tl-[20px] rounded-tr-md rounded-br-[20px] rounded-bl-[20px] px-4 py-2",
+              else:
+                if(m.name == "Stranger2",
+                  do:
+                    "max-w-xs bg-white rounded-tl-md rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] px-4 py-2",
+                  else: ""
+                )
+          }>
+            <div class="flex flex-col gap-1 font-serif">
+              <p class="text-base font-bold text-gray-800"><%= m.name %></p>
+              <p class="text-base font-medium text-gray-600"><%= m.text %></p>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <form phx-submit="send" class="flex bg-white py-2.5">
+      <input
+        type="text"
+        name="text"
+        placeholder="Write your message!"
+        class="focus:outline-none focus:placeholder-orange-400 text-gray-600 pl-4 py-3 w-full rounded-lg border border-orange-500 text-sm placeholder-orange-700 focus:border-orange-500 focus:ring-orange-500"
+      />
+      <button
+        type="submit"
+        class="ml-4 inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-orange-500 hover:bg-orange-400 focus:outline-none"
+      >
+        <span class="font-bold">Send</span>
+      </button>
+    </form>
+  </div>
 </div>

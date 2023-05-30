@@ -1,12 +1,14 @@
 defmodule LiveviewChatWeb.ChatLive.Index do
   use LiveviewChatWeb, :live_view
 
+  @names ["Stranger1", "Stranger2"]
+
   def mount(_params, _session, socket) do
     if connected?(socket) do
       LiveviewChatWeb.Endpoint.subscribe(topic)
     end
 
-    {:ok, assign(socket, username: username, messages: [])}
+    {:ok, assign(socket, username: username(), messages: [])}
   end
 
   def handle_info(%{event: "message", payload: message}, socket) do
@@ -23,7 +25,8 @@ defmodule LiveviewChatWeb.ChatLive.Index do
   end
 
   defp username do
-    "User #{:rand.uniform(100)}"
+    name = Enum.random(@names)
+    "#{name}"
   end
 
   defp topic do
